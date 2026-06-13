@@ -8,3 +8,11 @@ export async function getTasks(): Promise<Task[]> {
 export async function createTask(title: string): Promise<Task> {
   return invoke('create_task', { title });
 }
+
+export async function updateTaskStatus(id: string, status: string): Promise<Task> {
+  return invoke('update_task_status', { id, status });
+}
+
+export async function deleteTask(id: string): Promise<void> {
+  return invoke('delete_task', { id });
+}

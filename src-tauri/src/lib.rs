@@ -5,7 +5,7 @@ mod utils;
 
 use tauri::Manager;
 use db::connection::Database;
-use commands::tasks::{get_tasks, create_task};
+use commands::tasks::{get_tasks, create_task, update_task_status, delete_task};
 
 #[tauri::command(async)]
 fn greet(name: String) -> String {
@@ -21,7 +21,7 @@ pub fn run() {
             app.manage(db);
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![greet, get_tasks, create_task])
+        .invoke_handler(tauri::generate_handler![greet, get_tasks, create_task, update_task_status, delete_task])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

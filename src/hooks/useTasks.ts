@@ -1,6 +1,6 @@
 ﻿import { useState, useCallback } from 'react';
 import { Task } from '@/types/task';
-import { getTasks, createTask } from '@/services/taskService';
+import { getTasks, createTask, updateTaskStatus, deleteTask } from '@/services/taskService';
 
 export function useTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -22,5 +22,17 @@ export function useTasks() {
     return task;
   }, []);
 
-  return { tasks, loading, loadTasks, addTask };
+  const toggleTaskStatus = useCallback(async (id: string, currentStatus: string) => {
+    const newStatus = currentStatus === 'done' ? 'todo' : 'done';
+    const updated = await updateTaskStatus(id, newStatus);
+    setTasks(prev => prev.map(t => t.id === id ? updated : t));
+    return updated;
+  }, []);
+
+  const removeTask = useCallback(async (id: string) => {
+    await deleteTask(id);
+    setTasks(prev => prev.filter(t => t.id !== id));
+  }, []);
+
+  return { tasks, loading, loadTasks, addTask, toggleTaskStatus, removeTask };
 }
