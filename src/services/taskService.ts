@@ -1,6 +1,6 @@
 ﻿import { Task } from '@/types/task';
+import { invoke } from '@tauri-apps/api/tauri';
 
 export async function getTasks(): Promise<Task[]> {
-  // TODO: invoke Tauri
-  return [];
+  return invoke('get_tasks');
 }
