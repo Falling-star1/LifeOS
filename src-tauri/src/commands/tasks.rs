@@ -1,13 +1,7 @@
-﻿use serde::{Deserialize, Serialize};
+﻿use crate::db::connection::Database;
+use crate::models::task::Task;
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Task {
-    pub id: String,
-    pub title: String,
-    pub description: Option<String>,
-    pub status: String,
-    pub priority: i32,
-    pub due_date: Option<i64>,
-    pub created_at: i64,
-    pub updated_at: i64,
+#[tauri::command(async)]
+pub async fn get_tasks(db: tauri::State<'_, Database>) -> Result<Vec<Task>, String> {
+    crate::db::queries::tasks::list_tasks(&db.conn, None).map_err(|e| e.to_string())
 }
