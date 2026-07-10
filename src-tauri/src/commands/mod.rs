@@ -1,4 +1,4 @@
-﻿pub mod tasks;
+pub mod tasks;
 pub mod calendar;
 pub mod study;
 pub mod pomodoro;

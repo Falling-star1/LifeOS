@@ -1,4 +1,9 @@
 ﻿pub mod tasks;
+pub mod notes;
+pub mod study;
+pub mod pomodoro;
 pub mod tags;
 pub mod projects;
 pub mod settings;
+pub mod calendar;
+pub mod search;
